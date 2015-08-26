@@ -174,7 +174,7 @@ ANEObject* obj = [ANEObject objectWithString:@"wat"];
 double d = obj.doubleValue;
 ```
 
-an NSException with the name ANEExceptionName will be thrown.
+an NSException with the name ANEException will be thrown.
 
 Most of the time, these exceptions should not be caught because they result from bugs in the Objective-C code. However, there is one case where you might need to catch the thrown exception. Methods that directly interact with or create ActionScript objects—objectWithClassName:, get/setProperty:, and callMethod:—may cause an ActionScript Error to be thrown. Ideally, you would handle this on the ActionScript side, but if that's not possible, you can retrieve the ActionScript Error object as follows:
 

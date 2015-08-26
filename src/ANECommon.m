@@ -9,4 +9,4 @@
 #import <Foundation/Foundation.h>
 
 NSString* const ANEExceptionErrorObjectKey = @"ANEExceptionErrorObjectKey";
-NSString* const ANEExceptionName = @"ANEException";
+NSString* const ANEException = @"ANEException";

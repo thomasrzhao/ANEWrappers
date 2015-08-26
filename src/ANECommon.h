@@ -7,4 +7,4 @@
 //
 
 FOUNDATION_EXPORT NSString* const ANEExceptionErrorObjectKey;
-FOUNDATION_EXPORT NSString* const ANEExceptionName;
+FOUNDATION_EXPORT NSString* const ANEException;
