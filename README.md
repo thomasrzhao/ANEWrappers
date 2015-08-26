@@ -158,7 +158,7 @@ context.nativeData = (void*)CFBridgingRetain(contextID);
 
 Because the nativeData is passed as-is to the C-side, make sure to insert the appropriate bridging calls for memory management.
 
-To communicate asynchronously between the ANE and ActionScript, use the dispatchStatusEventAsyncWithCode:level: method:
+To communicate asynchronously between native code and ActionScript, use the dispatchStatusEventAsyncWithCode:level: method:
 
 ```objective-c
 [context dispatchStatusEventAsyncWithCode:@"DONE_DOING_THING" level:@"status"];
@@ -204,7 +204,7 @@ FREObject myFunction(FREContext ctx, void* funcData, uint32_t argc, FREObject ar
 If you attempt to keep an ANEObject beyond its valid lifetime, you'll get an exception when you try to manipulate it later. Don't do that.
 
 #### ANEByteArray/ANEBitmapData Locks
-As mentioned above, you need to lock ANEByteArray/ANEBitmapData objects before you can use them. However, it's important to note that **NO** ANE API functions can be called in between the acquire and release statements. This is really easy to mess up and will result in a crash:
+As mentioned above, you need to lock ANEByteArray/ANEBitmapData objects before you can use them. However, it's important to note that **NO** other ANE API functions can be called in between the acquire and release statements. This is really easy to mess up and will result in a crash:
 
 ```objective-c
 ANEObject* canIDoThis = ...
@@ -218,13 +218,13 @@ You can, however, acquire multiple ByteArray or BitmapData objects (but not both
 
 ```objective-c
 //Must create the objects BEFORE acquiring any locks
-ANEByteArray* input = ...
-ANEByteArray* output = ...
-[input acquireByteArray];
-[output acquireByteArray];
-memcpy(output.bytes, input.bytes, input.length);
-[output releaseByteArray];
-[input releaseByteArray];
+ANEByteArray* src = ...
+ANEByteArray* dest = ...
+[src acquireByteArray];
+[dest acquireByteArray];
+memcpy(dest.bytes, src.bytes, src.length);
+[dest releaseByteArray];
+[src releaseByteArray];
 ```
 
 Basically just don't touch anything except ANEByteArray/ANEBitmapData properties in between the acquire and release statements and you'll be fine.
@@ -243,8 +243,11 @@ You can only call actionScriptData methods while inside a FREFunction call from 
 
 #### objectWithFREObject: Caveats
 The objectWithFREObject: call behaves differently depending on the actual class in which it's executing.
+
 [ANEObject objectWithFREObject:] will actually return the correct subclass depending on the FREObject that's passed in. So if you pass in an FREObject that represents an ActionScript ByteArray, you'll actually get an ANEByteArray object back, but upcasted to ANEObject. 
+
 This does not apply to any of the subclasses however. If you attempt to call objectWithFREObject: on any ANEObject subclass, you will always get that subclass or nil. This also means that the objectWithInt:, objectWithBool:, etc. methods will always return nil if you call them on anything that's not an ANEObject.
+
 This is to prevent the weird case of getting an ANEByteArray back from an ANEBitmapImage class method.
 
 ```objective-c
