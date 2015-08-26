@@ -16,7 +16,7 @@
     uint32_t _length;
 }
 
-- (instancetype)initWithArray:(ANEArray*)array {
+- (instancetype) initWithArray:(ANEArray*)array {
     self = [super init];
     if (self) {
         _array = array;
@@ -26,7 +26,7 @@
     return self;
 }
 
-- (ANEObject*)nextObject {
+- (ANEObject*) nextObject {
     if(_curIndex > _length) {
         return nil;
     }
@@ -50,45 +50,45 @@
     return self;
 }
 
-+ (instancetype) arrayWithClassName:(NSString*)classname numElements:(uint32_t)numElements fixed:(BOOL)fixed {
-    return [self objectWithClassName:[NSString stringWithFormat:@"Vector.<%@>", classname] constructorArgs:[ANEObject objectWithUnsignedInt:numElements], [ANEObject objectWithBool:fixed], nil];
++ (instancetype) arrayWithClassName:(NSString*)className numElements:(uint32_t)numElements fixed:(BOOL)fixed {
+    return [self objectWithClassName:[NSString stringWithFormat:@"Vector.<%@>", className] constructorArgs:[ANEObject objectWithUnsignedInt:numElements], [ANEObject objectWithBool:fixed], nil];
 }
 
 + (instancetype) arrayWithNumElements:(uint32_t)numElements {
     return [self objectWithClassName:@"Array" constructorArgs:[ANEObject objectWithUnsignedInt:numElements], nil];
 }
 
-- (uint32_t)length {
+- (uint32_t) length {
     uint32_t len;
     ANE_assertOKResult(FREGetArrayLength(self.freObject, &len));
     return len;
 }
 
-- (void)setLength:(uint32_t)length {
+- (void) setLength:(uint32_t)length {
     ANE_assertOKResult(FRESetArrayLength(self.freObject, length));
     mutationCounter++;
 }
 
-- (ANEObject*)objectAtIndex:(uint32_t)index {
+- (ANEObject*) objectAtIndex:(uint32_t)index {
     FREObject obj;
     ANE_assertOKResult(FREGetArrayElementAt(self.freObject, index, &obj));
     return [ANEObject objectWithFREObject:obj];
 }
 
-- (void)setObject:(ANEObject*)object atIndex:(uint32_t)index {
+- (void) setObject:(ANEObject*)object atIndex:(uint32_t)index {
     ANE_assertOKResult(FRESetArrayElementAt(self.freObject, index, object.freObject));
     mutationCounter++;
 }
 
-- (ANEObject*)objectAtIndexedSubscript:(uint32_t)idx {
+- (ANEObject*) objectAtIndexedSubscript:(uint32_t)idx {
     return [self objectAtIndex:(uint32_t)idx];
 }
 
-- (void)setObject:(ANEObject*)obj atIndexedSubscript:(uint32_t)idx {
+- (void) setObject:(ANEObject*)obj atIndexedSubscript:(uint32_t)idx {
     return [self setObject:obj atIndex:(uint32_t)idx];
 }
 
-- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(__unsafe_unretained id [])buffer count:(NSUInteger)count {
+- (NSUInteger) countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(__unsafe_unretained id [])buffer count:(NSUInteger)count {
     if(!state->state) {
         state->mutationsPtr = &mutationCounter;
     }
@@ -107,7 +107,7 @@
     return objCount;
 }
 
-- (void)enumerateObjectsUsingBlock:(void (^)(ANEObject* obj, uint32_t idx, BOOL *stop))block {
+- (void) enumerateObjectsUsingBlock:(void (^)(ANEObject* obj, uint32_t idx, BOOL *stop))block {
     BOOL stop = NO;
     
     uint32_t length = self.length;

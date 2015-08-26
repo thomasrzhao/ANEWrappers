@@ -21,9 +21,9 @@
 @property (readonly) BOOL isInvertedY;
 
 //Must call acquireBitmapData before calling this method
-- (void)invalidateRectX:(uint32_t)x y:(uint32_t)y width:(uint32_t)width height:(uint32_t)height;
+- (void) invalidateRectX:(uint32_t)x y:(uint32_t)y width:(uint32_t)width height:(uint32_t)height;
 
-- (void)acquireBitmapData;
-- (void)releaseBitmapData;
+- (void) acquireBitmapData;
+- (void) releaseBitmapData;
 
 @end

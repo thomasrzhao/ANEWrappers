@@ -11,39 +11,46 @@
 #import "ANEObject.h"
 
 @implementation ANEContext
-- (instancetype)initWithFREContext:(FREContext)ctx {
+- (instancetype) init {
+    NSAssert(NO, @"init is not allowed, use initWithFREContext: instead");
+    return nil;
+}
+
+- (instancetype) initWithFREContext:(FREContext)ctx {
     self = [super init];
     if(self) {
+        if(!ctx) { return nil; }
+
         _freContext = ctx;
     }
     return self;
 }
 
-+ (instancetype)contextWithFREContext:(FREContext)ctx {
++ (instancetype) contextWithFREContext:(FREContext)ctx {
     return [[self alloc] initWithFREContext:ctx];
 }
 
-- (ANEObject*)actionScriptData {
+- (ANEObject*) actionScriptData {
     FREObject obj;
     ANE_assertOKResult(FREGetContextActionScriptData(_freContext, &obj));
     return [ANEObject objectWithFREObject:obj];
 }
 
-- (void)setActionScriptData:(ANEObject*)actionScriptData {
+- (void) setActionScriptData:(ANEObject*)actionScriptData {
     ANE_assertOKResult(FRESetContextActionScriptData(_freContext, actionScriptData.freObject));
 }
 
-- (void*)nativeData {
+- (void*) nativeData {
     void* nativeData;
     FREGetContextNativeData(_freContext, &nativeData);
     return nativeData;
 }
 
-- (void)setNativeData:(void *)nativeData {
+- (void) setNativeData:(void *)nativeData {
     ANE_assertOKResult(FRESetContextNativeData(_freContext, nativeData));
 }
 
-- (void)dispatchStatusEventAsyncWithCode:(NSString*)code level:(NSString*)level {
+- (void) dispatchStatusEventAsyncWithCode:(NSString*)code level:(NSString*)level {
     ANE_assertOKResult(FREDispatchStatusEventAsync(_freContext, (uint8_t*)[code UTF8String], (uint8_t*)[level UTF8String]));
 }
 @end

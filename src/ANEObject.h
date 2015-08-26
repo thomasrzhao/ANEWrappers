@@ -24,6 +24,8 @@
 
 + (instancetype) objectWithClassName:(NSString*)className constructorArgs:(ANEObject*)args, ... NS_REQUIRES_NIL_TERMINATION;
 + (instancetype) objectWithClassName:(NSString*)className constructorArgs:(ANEObject*)firstArg vaList:(va_list)vaList;
+
+//The NSArray argument should only contain ANEObject*
 + (instancetype) objectWithClassName:(NSString*)className constructorArgsArray:(NSArray*)argsArray;
 
 //This factory method will return an ANEObject that can be downcasted to a subtype (ANEArray, ANEByteArray, ANEBitmapData) if the underlying FREObject corresponds to one of those types
@@ -46,5 +48,5 @@
 - (ANEObject*) callMethod:(NSString*)methodName methodArgsArray:(NSArray*)argsArray;
 
 - (ANEObject*) objectForKeyedSubscript:(NSString*)key;
-- (void)setObject:(ANEObject*)obj forKeyedSubscript:(NSString*)key;
+- (void) setObject:(ANEObject*)obj forKeyedSubscript:(NSString*)key;
 @end

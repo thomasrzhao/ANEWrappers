@@ -40,39 +40,39 @@
                                      [ANEObject objectWithUnsignedInt:fillColor], nil];
 }
 
-- (uint32_t)width {
+- (uint32_t) width {
     RET_IF_DATA_VALID(_data.width, 0);
 }
-- (uint32_t)height {
+- (uint32_t) height {
     RET_IF_DATA_VALID(_data.height, 0);
 }
-- (BOOL)hasAlpha {
+- (BOOL) hasAlpha {
     RET_IF_DATA_VALID(_data.hasAlpha, NO);
 }
-- (BOOL)isPremultiplied {
+- (BOOL) isPremultiplied {
     RET_IF_DATA_VALID(_data.isPremultiplied, NO);
 }
-- (uint32_t)lineStride32 {
+- (uint32_t) lineStride32 {
     RET_IF_DATA_VALID(_data.lineStride32, 0);
 }
-- (uint32_t*)bits {
+- (uint32_t*) bits {
     RET_IF_DATA_VALID(_data.bits32, NULL);
 }
-- (BOOL)isInvertedY {
+- (BOOL) isInvertedY {
     RET_IF_DATA_VALID(_data.isInvertedY, NO);
 }
-- (void)acquireBitmapData {
+- (void) acquireBitmapData {
     ANE_assertOKResult(FREAcquireBitmapData2(self.freObject, &_data));
     _dataValid = true;
 }
-- (void)releaseBitmapData {
+- (void) releaseBitmapData {
     ANE_assertOKResult(FREReleaseBitmapData(self.freObject));
     _dataValid = false;
 }
-- (void)invalidateRectX:(uint32_t)x y:(uint32_t)y width:(uint32_t)width height:(uint32_t)height {
+- (void) invalidateRectX:(uint32_t)x y:(uint32_t)y width:(uint32_t)width height:(uint32_t)height {
     ANE_assertOKResult(FREInvalidateBitmapDataRect(self.freObject, x, YES, width, height));
 }
-- (void)dealloc {
+- (void) dealloc {
     if(_dataValid) {
         [self releaseBitmapData];
     }

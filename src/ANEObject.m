@@ -32,10 +32,10 @@ static void ANE_freObjectsFromVarargs(ANEObject* firstArg, va_list argsList, FRE
     va_copy(copyList, argsList);
     
     NSUInteger i;
-    ANEObject* cur;
+    ANEObject* arg;
     
-    for(i = 0, cur = firstArg; cur != nil; i++, cur = va_arg(copyList, ANEObject*)) {
-        freObjects[i] = cur.freObject;
+    for(i = 0, arg = firstArg; arg != nil; i++, arg = va_arg(copyList, ANEObject*)) {
+        freObjects[i] = arg.freObject;
     }
     
     va_end(copyList);
@@ -48,7 +48,12 @@ static FREObjectType ANE_getObjectType(FREObject obj) {
 }
 
 @implementation ANEObject
-- (instancetype)initWithFREObject:(FREObject)obj {
+- (instancetype) init {
+    NSAssert(NO, @"init is not allowed, use the objectWithX: methods instead");
+    return nil;
+}
+
+- (instancetype) initWithFREObject:(FREObject)obj {
     self = [super init];
     if(self) {
         if(!obj) { return nil; }
@@ -245,15 +250,15 @@ static FREObjectType ANE_getObjectType(FREObject obj) {
     return [self getProperty:key];
 }
 
-- (void)setObject:(ANEObject*)obj forKeyedSubscript:(NSString*)key {
+- (void) setObject:(ANEObject*)obj forKeyedSubscript:(NSString*)key {
     [self setProperty:key value:obj];
 }
 
-- (FREObjectType)freObjectType {
+- (FREObjectType) freObjectType {
     return ANE_getObjectType(self.freObject);
 }
 
-- (BOOL)isNull {
+- (BOOL) isNull {
     return self.freObjectType == FRE_TYPE_NULL;
 }
 

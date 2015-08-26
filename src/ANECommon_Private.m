@@ -50,7 +50,7 @@ void ANE_assertOKResultException(FREResult result, FREObject exceptionObj) {
         
         NSDictionary* userInfo = nil;
         if(exceptionObj && result == FRE_ACTIONSCRIPT_ERROR) {
-            userInfo = @{ANEExceptionObjectKey: [ANEObject objectWithFREObject:exceptionObj]};
+            userInfo = @{ANEExceptionErrorObjectKey: [ANEObject objectWithFREObject:exceptionObj]};
         }
         [NSException exceptionWithName:ANEExceptionName reason:[NSString stringWithFormat:@"FREResult returned error code %d (%@)", result, name] userInfo:userInfo];
     }

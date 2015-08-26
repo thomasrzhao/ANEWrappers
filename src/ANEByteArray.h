@@ -17,7 +17,7 @@
 @property (readonly) uint8_t* bytes;
 @property (readonly) NSData* data;
 
-- (void)acquireByteArray;
-- (void)releaseByteArray;
+- (void) acquireByteArray;
+- (void) releaseByteArray;
 
 @end

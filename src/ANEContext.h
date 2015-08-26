@@ -19,9 +19,9 @@
 @property (nonatomic, assign, readwrite) void* nativeData;
 
 - (instancetype) init __attribute__((unavailable("use initWithFREContext: instead")));
-- (instancetype)initWithFREContext:(FREContext)ctx NS_DESIGNATED_INITIALIZER;
 
-+ (instancetype)contextWithFREContext:(FREContext)ctx;
+- (instancetype) initWithFREContext:(FREContext)ctx NS_DESIGNATED_INITIALIZER;
++ (instancetype) contextWithFREContext:(FREContext)ctx;
 
-- (void)dispatchStatusEventAsyncWithCode:(NSString*)code level:(NSString*)level;
+- (void) dispatchStatusEventAsyncWithCode:(NSString*)code level:(NSString*)level;
 @end

@@ -49,29 +49,29 @@ else { NSLog(@"Must call acquireByteArray before accessing ANEByteArray properti
     return byteArray;
 }
 
-- (uint32_t)length {
+- (uint32_t) length {
     RET_IF_DATA_VALID(_byteArray.length, 0);
 }
 
-- (uint8_t*)bytes {
+- (uint8_t*) bytes {
     RET_IF_DATA_VALID(_byteArray.bytes, 0);
 }
 
-- (void)acquireByteArray {
+- (void) acquireByteArray {
     ANE_assertOKResult(FREAcquireByteArray(self.freObject, &_byteArray));
     _dataValid = true;
 }
 
-- (void)releaseByteArray {
+- (void) releaseByteArray {
     ANE_assertOKResult(FREReleaseByteArray(self.freObject));
     _dataValid = false;
 }
 
-- (NSData*)data {
+- (NSData*) data {
     return [NSData dataWithBytesNoCopy:_byteArray.bytes length:_byteArray.length freeWhenDone:NO];
 }
 
-- (void)dealloc {
+- (void) dealloc {
     if(_dataValid) {
         [self releaseByteArray];
     }
