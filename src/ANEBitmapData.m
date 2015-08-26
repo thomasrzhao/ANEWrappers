@@ -10,8 +10,6 @@
 #import "ANECommon_Private.h"
 #import "ANEObject_Protected.h"
 
-@import UIKit;
-
 #define RET_IF_DATA_VALID(retVal, fallback) do { \
     if(_dataValid) { return retVal; } \
     else { NSLog(@"Must call acquireBitmapData before accessing ANEBitmapData properties"); return fallback; } \
