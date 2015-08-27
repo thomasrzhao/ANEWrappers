@@ -52,7 +52,7 @@ void ANE_assertOKResultException(FREResult result, FREObject exceptionObj) {
         if(exceptionObj && result == FRE_ACTIONSCRIPT_ERROR) {
             userInfo = @{ANEExceptionErrorObjectKey: [ANEObject objectWithFREObject:exceptionObj]};
         }
-        [NSException exceptionWithName:ANEException reason:[NSString stringWithFormat:@"Operation returned FREResult error code %d (%@)", result, name] userInfo:userInfo];
+        [[NSException exceptionWithName:ANEException reason:[NSString stringWithFormat:@"Operation returned FREResult error code %d (%@)", result, name] userInfo:userInfo] raise];
     }
 }
 
