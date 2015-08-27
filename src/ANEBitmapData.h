@@ -15,10 +15,10 @@
 @property (readonly) uint32_t width;
 @property (readonly) uint32_t height;
 @property (readonly) BOOL hasAlpha;
-@property (readonly) BOOL isPremultiplied;
+@property (readonly, getter=isPremultiplied) BOOL premultiplied;
 @property (readonly) uint32_t lineStride32;
 @property (readonly) uint32_t* bits;
-@property (readonly) BOOL isInvertedY;
+@property (readonly, getter=isInvertedY) BOOL invertedY;
 
 //Must call acquireBitmapData before calling this method
 - (void) invalidateRectX:(uint32_t)x y:(uint32_t)y width:(uint32_t)width height:(uint32_t)height;
