@@ -43,7 +43,7 @@
 - (instancetype) initWithFREObject:(FREObject)obj {
     self = [super initWithFREObject:obj];
     if(self) {
-        if(self.freObjectType != FRE_TYPE_ARRAY) {
+        if(self.freObjectType != FRE_TYPE_ARRAY && self.freObjectType != FRE_TYPE_VECTOR) {
             return nil;
         }
     }
