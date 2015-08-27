@@ -35,7 +35,7 @@ else { NSLog(@"Must call acquireByteArray before accessing ANEByteArray properti
 }
 
 + (instancetype) byteArrayWithData:(NSData*)data {
-    ANEByteArray* byteArray = [self objectWithClassName:@"ByteArray" constructorArgs: nil];
+    ANEByteArray* byteArray = [self objectWithClassName:@"flash.utils.ByteArray" constructorArgs: nil];
     
     if(byteArray && data) {
         byteArray[@"length"] = [ANEObject objectWithUnsignedInt:(uint32_t)data.length];

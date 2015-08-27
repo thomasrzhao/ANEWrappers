@@ -31,7 +31,7 @@
 }
 
 + (instancetype) bitmapDataWithWidth:(uint32_t)width height:(uint32_t)height transparent:(BOOL)transparent fillColor:(uint32_t)fillColor {
-    return [self objectWithClassName:@"BitmapData"
+    return [self objectWithClassName:@"flash.display.BitmapData"
                      constructorArgs:[ANEObject objectWithUnsignedInt:width],
                                      [ANEObject objectWithUnsignedInt:height],
                                      [ANEObject objectWithBool:transparent],
