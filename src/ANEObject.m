@@ -35,7 +35,7 @@ static void ANE_freObjectsFromVarargs(ANEObject* firstArg, va_list argsList, FRE
     ANEObject* arg;
     
     for(i = 0, arg = firstArg; arg != nil; i++, arg = va_arg(copyList, ANEObject*)) {
-        freObjects[i] = arg.freObject;
+        freObjects[i] = arg.FREObject;
     }
     
     va_end(copyList);
@@ -58,7 +58,7 @@ static FREObjectType ANE_getObjectType(FREObject obj) {
     if(self) {
         if(!obj) { return nil; }
 
-        _freObject = obj;
+        _FREObject = obj;
     }
     return self;
 }
@@ -133,7 +133,7 @@ static FREObjectType ANE_getObjectType(FREObject obj) {
         FREObject freArgs[argsArray.count];
         
         for(NSUInteger i = 0; i < argsArray.count; i++) {
-            freArgs[i] = ((ANEObject*)argsArray[i]).freObject;
+            freArgs[i] = ((ANEObject*)argsArray[i]).FREObject;
         }
         
         ANE_assertOKResultException(FRENewObject((uint8_t*)[className UTF8String], (uint32_t)argsArray.count, freArgs, &resultObj, &exception), exception);
@@ -162,32 +162,32 @@ static FREObjectType ANE_getObjectType(FREObject obj) {
 
 - (int32_t) intValue {
     int32_t val;
-    ANE_assertOKResult(FREGetObjectAsInt32(self.freObject, &val));
+    ANE_assertOKResult(FREGetObjectAsInt32(self.FREObject, &val));
     return val;
 }
 
 - (uint32_t) unsignedIntValue {
     uint32_t val;
-    ANE_assertOKResult(FREGetObjectAsUint32(self.freObject, &val));
+    ANE_assertOKResult(FREGetObjectAsUint32(self.FREObject, &val));
     return val;
 }
 
 - (BOOL) boolValue {
     uint32_t val;
-    ANE_assertOKResult(FREGetObjectAsBool(self.freObject, &val));
+    ANE_assertOKResult(FREGetObjectAsBool(self.FREObject, &val));
     return val;
 }
 
 - (double) doubleValue {
     double val;
-    ANE_assertOKResult(FREGetObjectAsDouble(self.freObject, &val));
+    ANE_assertOKResult(FREGetObjectAsDouble(self.FREObject, &val));
     return val;
 }
 
 - (NSString*) stringValue {
     uint32_t len;
     const uint8_t* str;
-    ANE_assertOKResult(FREGetObjectAsUTF8(self.freObject, &len, &str));
+    ANE_assertOKResult(FREGetObjectAsUTF8(self.FREObject, &len, &str));
     
     return [NSString stringWithUTF8String:(char*)str];
 }
@@ -195,13 +195,13 @@ static FREObjectType ANE_getObjectType(FREObject obj) {
 - (ANEObject*) getProperty:(NSString*)propertyName {
     FREObject propertyValue;
     FREObject exception;
-    ANE_assertOKResultException(FREGetObjectProperty(self.freObject, (uint8_t*)[propertyName UTF8String], &propertyValue, &exception), exception);
+    ANE_assertOKResultException(FREGetObjectProperty(self.FREObject, (uint8_t*)[propertyName UTF8String], &propertyValue, &exception), exception);
     return [ANEObject objectWithFREObject:propertyValue];
 }
 
 - (void) setProperty:(NSString*)propertyName value:(ANEObject*)propertyValue {
     FREObject exception;
-    ANE_assertOKResultException(FRESetObjectProperty(self.freObject, (uint8_t*)[propertyName UTF8String], propertyValue.freObject, &exception), exception);
+    ANE_assertOKResultException(FRESetObjectProperty(self.FREObject, (uint8_t*)[propertyName UTF8String], propertyValue.FREObject, &exception), exception);
 }
 
 - (ANEObject*) callMethod:(NSString*)methodName methodArgs:(ANEObject*)args, ... {
@@ -224,9 +224,9 @@ static FREObjectType ANE_getObjectType(FREObject obj) {
     if(count) {
         FREObject freArgs[count];
         ANE_freObjectsFromVarargs(firstArg, vaList, freArgs);
-        ANE_assertOKResultException(FRECallObjectMethod(self.freObject, (uint8_t*)[methodName UTF8String], (uint32_t)count, freArgs, &result, &exception), exception);
+        ANE_assertOKResultException(FRECallObjectMethod(self.FREObject, (uint8_t*)[methodName UTF8String], (uint32_t)count, freArgs, &result, &exception), exception);
     } else {
-        ANE_assertOKResultException(FRECallObjectMethod(self.freObject, (uint8_t*)[methodName UTF8String], 0, NULL, &result, &exception), exception);
+        ANE_assertOKResultException(FRECallObjectMethod(self.FREObject, (uint8_t*)[methodName UTF8String], 0, NULL, &result, &exception), exception);
     }
     return [ANEObject objectWithFREObject:result];
 }
@@ -237,11 +237,11 @@ static FREObjectType ANE_getObjectType(FREObject obj) {
     if(argsArray.count) {
         FREObject freArgs[argsArray.count];
         for(NSUInteger i = 0; i < argsArray.count; i++) {
-            freArgs[i] = ((ANEObject*)argsArray[i]).freObject;
+            freArgs[i] = ((ANEObject*)argsArray[i]).FREObject;
         }
-        ANE_assertOKResultException(FRECallObjectMethod(self.freObject, (uint8_t*)[methodName UTF8String], (uint32_t)argsArray.count, freArgs, &result, &exception), exception);
+        ANE_assertOKResultException(FRECallObjectMethod(self.FREObject, (uint8_t*)[methodName UTF8String], (uint32_t)argsArray.count, freArgs, &result, &exception), exception);
     } else {
-        ANE_assertOKResultException(FRECallObjectMethod(self.freObject, (uint8_t*)[methodName UTF8String], 0, NULL, &result, &exception), exception);
+        ANE_assertOKResultException(FRECallObjectMethod(self.FREObject, (uint8_t*)[methodName UTF8String], 0, NULL, &result, &exception), exception);
     }
     return [ANEObject objectWithFREObject:result];
 }
@@ -254,12 +254,12 @@ static FREObjectType ANE_getObjectType(FREObject obj) {
     [self setProperty:key value:obj];
 }
 
-- (FREObjectType) freObjectType {
-    return ANE_getObjectType(self.freObject);
+- (FREObjectType) type {
+    return ANE_getObjectType(self.FREObject);
 }
 
 - (BOOL) isNull {
-    return self.freObjectType == FRE_TYPE_NULL;
+    return self.type == FRE_TYPE_NULL;
 }
 
 @end

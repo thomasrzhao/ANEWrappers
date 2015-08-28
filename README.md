@@ -65,7 +65,7 @@ To pass data back to ActionScript, simply make a new ANEObject and return the un
 FREObject divideDoubleByTwo(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]) {
 	double answer = [ANEObject objectWithFREObject:argv[0]].doubleValue / 2;
  	
-	return [ANEObject objectWithDouble:answer].freObject;
+	return [ANEObject objectWithDouble:answer].FREObject;
 }
 ```
 
@@ -246,7 +246,7 @@ The objectWithFREObject: call behaves differently depending on the actual class 
 
 [ANEObject objectWithFREObject:] will actually return the correct subclass depending on the FREObject that's passed in. So if you pass in an FREObject that represents an ActionScript ByteArray, you'll actually get an ANEByteArray object back, but upcasted to ANEObject. 
 
-This does not apply to any of the subclasses however. If you attempt to call objectWithFREObject: on any ANEObject subclass, you will always get that subclass or nil. This also means that the objectWithInt:, objectWithBool:, etc. methods will always return nil if you call them on anything that's not an ANEObject.
+This does not apply to any of the subclasses, however. If you attempt to call objectWithFREObject: on any ANEObject subclass, you will always get either an instance of that subclass or nil. This also means that the objectWithInt:, objectWithBool:, etc. methods will always return nil if you call them on anything that's not an ANEObject.
 
 This is to prevent the weird case of getting an ANEByteArray back from an ANEBitmapImage class method.
 

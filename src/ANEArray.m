@@ -43,7 +43,7 @@
 - (instancetype) initWithFREObject:(FREObject)obj {
     self = [super initWithFREObject:obj];
     if(self) {
-        if(self.freObjectType != FRE_TYPE_ARRAY && self.freObjectType != FRE_TYPE_VECTOR) {
+        if(self.type != FRE_TYPE_ARRAY && self.type != FRE_TYPE_VECTOR) {
             return nil;
         }
     }
@@ -60,23 +60,23 @@
 
 - (uint32_t) length {
     uint32_t len;
-    ANE_assertOKResult(FREGetArrayLength(self.freObject, &len));
+    ANE_assertOKResult(FREGetArrayLength(self.FREObject, &len));
     return len;
 }
 
 - (void) setLength:(uint32_t)length {
-    ANE_assertOKResult(FRESetArrayLength(self.freObject, length));
+    ANE_assertOKResult(FRESetArrayLength(self.FREObject, length));
     mutationCounter++;
 }
 
 - (ANEObject*) objectAtIndex:(uint32_t)index {
     FREObject obj;
-    ANE_assertOKResult(FREGetArrayElementAt(self.freObject, index, &obj));
+    ANE_assertOKResult(FREGetArrayElementAt(self.FREObject, index, &obj));
     return [ANEObject objectWithFREObject:obj];
 }
 
 - (void) setObject:(ANEObject*)object atIndex:(uint32_t)index {
-    ANE_assertOKResult(FRESetArrayElementAt(self.freObject, index, object.freObject));
+    ANE_assertOKResult(FRESetArrayElementAt(self.FREObject, index, object.FREObject));
     mutationCounter++;
 }
 

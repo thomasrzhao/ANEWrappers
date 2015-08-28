@@ -23,7 +23,7 @@ else { NSLog(@"Must call acquireByteArray before accessing ANEByteArray properti
 - (instancetype) initWithFREObject:(FREObject)obj {
     self = [super initWithFREObject:obj];
     if(self) {
-        if(self.freObjectType != FRE_TYPE_BYTEARRAY) {
+        if(self.type != FRE_TYPE_BYTEARRAY) {
             return nil;
         }
     }
@@ -37,7 +37,7 @@ else { NSLog(@"Must call acquireByteArray before accessing ANEByteArray properti
 + (instancetype) byteArrayWithData:(NSData*)data {
     ANEByteArray* byteArray = [self objectWithClassName:@"flash.utils.ByteArray" constructorArgs: nil];
     
-    if(byteArray && data) {
+    if(byteArray && data) {        
         byteArray[@"length"] = [ANEObject objectWithUnsignedInt:(uint32_t)data.length];
         [byteArray acquireByteArray];
         if(byteArray.bytes) {
@@ -58,12 +58,12 @@ else { NSLog(@"Must call acquireByteArray before accessing ANEByteArray properti
 }
 
 - (void) acquireByteArray {
-    ANE_assertOKResult(FREAcquireByteArray(self.freObject, &_byteArray));
+    ANE_assertOKResult(FREAcquireByteArray(self.FREObject, &_byteArray));
     _dataValid = true;
 }
 
 - (void) releaseByteArray {
-    ANE_assertOKResult(FREReleaseByteArray(self.freObject));
+    ANE_assertOKResult(FREReleaseByteArray(self.FREObject));
     _dataValid = false;
 }
 

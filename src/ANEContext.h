@@ -13,7 +13,7 @@
 @class ANEObject;
 
 @interface ANEContext : NSObject
-@property (readonly) FREContext freContext;
+@property (readonly) FREContext FREContext;
 
 @property (nonatomic, strong, readwrite) ANEObject* actionScriptData;
 @property (nonatomic, assign, readwrite) void* nativeData;

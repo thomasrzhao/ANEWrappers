@@ -12,7 +12,7 @@
 
 @interface ANEObject : NSObject
 
-@property (readonly) FREObject freObject;
+@property (readonly) FREObject FREObject;
 
 - (instancetype) init __attribute__((unavailable("use the objectWithX: factory methods instead")));
 
@@ -37,7 +37,7 @@
 @property (readonly) BOOL boolValue;
 @property (readonly) double doubleValue;
 @property (readonly) NSString* stringValue;
-@property (readonly) FREObjectType freObjectType;
+@property (readonly) FREObjectType type;
 @property (readonly, getter=isNull) BOOL null;
 
 - (ANEObject*) getProperty:(NSString*)propertyName;

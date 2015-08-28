@@ -23,7 +23,7 @@
 - (instancetype) initWithFREObject:(FREObject)obj {
     self = [super initWithFREObject:obj];
     if(self) {
-        if(self.freObjectType != FRE_TYPE_BITMAPDATA) {
+        if(self.type != FRE_TYPE_BITMAPDATA) {
             return nil;
         }
     }
@@ -60,15 +60,15 @@
     RET_IF_DATA_VALID(_data.isInvertedY, NO);
 }
 - (void) acquireBitmapData {
-    ANE_assertOKResult(FREAcquireBitmapData2(self.freObject, &_data));
+    ANE_assertOKResult(FREAcquireBitmapData2(self.FREObject, &_data));
     _dataValid = true;
 }
 - (void) releaseBitmapData {
-    ANE_assertOKResult(FREReleaseBitmapData(self.freObject));
+    ANE_assertOKResult(FREReleaseBitmapData(self.FREObject));
     _dataValid = false;
 }
 - (void) invalidateRectX:(uint32_t)x y:(uint32_t)y width:(uint32_t)width height:(uint32_t)height {
-    ANE_assertOKResult(FREInvalidateBitmapDataRect(self.freObject, x, YES, width, height));
+    ANE_assertOKResult(FREInvalidateBitmapDataRect(self.FREObject, x, YES, width, height));
 }
 - (void) dealloc {
     if(_dataValid) {

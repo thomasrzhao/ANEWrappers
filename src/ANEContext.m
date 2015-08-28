@@ -21,7 +21,7 @@
     if(self) {
         if(!ctx) { return nil; }
 
-        _freContext = ctx;
+        _FREContext = ctx;
     }
     return self;
 }
@@ -32,25 +32,25 @@
 
 - (ANEObject*) actionScriptData {
     FREObject obj;
-    ANE_assertOKResult(FREGetContextActionScriptData(_freContext, &obj));
+    ANE_assertOKResult(FREGetContextActionScriptData(self.FREContext, &obj));
     return [ANEObject objectWithFREObject:obj];
 }
 
 - (void) setActionScriptData:(ANEObject*)actionScriptData {
-    ANE_assertOKResult(FRESetContextActionScriptData(_freContext, actionScriptData.freObject));
+    ANE_assertOKResult(FRESetContextActionScriptData(self.FREContext, actionScriptData.FREObject));
 }
 
 - (void*) nativeData {
     void* nativeData;
-    FREGetContextNativeData(_freContext, &nativeData);
+    FREGetContextNativeData(self.FREContext, &nativeData);
     return nativeData;
 }
 
 - (void) setNativeData:(void *)nativeData {
-    ANE_assertOKResult(FRESetContextNativeData(_freContext, nativeData));
+    ANE_assertOKResult(FRESetContextNativeData(self.FREContext, nativeData));
 }
 
 - (void) dispatchStatusEventAsyncWithCode:(NSString*)code level:(NSString*)level {
-    ANE_assertOKResult(FREDispatchStatusEventAsync(_freContext, (uint8_t*)[code UTF8String], (uint8_t*)[level UTF8String]));
+    ANE_assertOKResult(FREDispatchStatusEventAsync(self.FREContext, (uint8_t*)[code UTF8String], (uint8_t*)[level UTF8String]));
 }
 @end
