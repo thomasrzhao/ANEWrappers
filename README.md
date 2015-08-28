@@ -254,6 +254,6 @@ This is to prevent the weird case of getting an ANEByteArray back from an ANEBit
 FREObject byteArrayObj = ...
 ANEByteArray* byteArray = (ANEByteArray*)[ANEObject objectWithFREObject:byteArrayObj]; //OK
 ANEByteArray* byteArrayToo = [ANEByteArray objectWithFREObject:byteArrayObj]; //OK
-ANEBitmapImage* notABitmap = (ANEByteArray*)[ANEBitmapImage objectWithFREObject:byteArrayObj]; //returns nil
+ANEByteArray* notAByteArray = [ANEByteArray objectWithFREObject:bitmapObj]; //returns nil
 ANEByteArray* whatAreYouDoing = [ANEByteArray objectWithInt:42]; //returns nil
 ```
