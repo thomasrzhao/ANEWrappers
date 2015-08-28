@@ -129,7 +129,7 @@ These subclasses offer super-efficient access to their underlying data stores. H
 
 ```objective-c
 ANEByteArray* byteArray = [ANEByteArray byteArray];
-byteArray[@"length"] = 100; //Must set length _before_ acquiring lock
+byteArray[@"length"] = [ANEObject objectWithUnsignedInt:100]; //Must set length _before_ acquiring lock
 [byteArray acquireByteArray];
 uint8_t* bytes = byteArray.bytes;
 //Do stuff with bytes
