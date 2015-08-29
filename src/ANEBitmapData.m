@@ -70,6 +70,15 @@
 - (void) invalidateRectX:(uint32_t)x y:(uint32_t)y width:(uint32_t)width height:(uint32_t)height {
     ANE_assertOKResult(FREInvalidateBitmapDataRect(self.FREObject, x, YES, width, height));
 }
+
+- (void) performBitmapDataOperation:(void (^)(ANEBitmapData* bitmapData))operation {
+    [self acquireBitmapData];
+    if(operation) {
+        operation(self);
+    }
+    [self releaseBitmapData];
+}
+
 - (void) dealloc {
     if(_dataValid) {
         [self releaseBitmapData];

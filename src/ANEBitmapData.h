@@ -26,4 +26,7 @@
 - (void) acquireBitmapData;
 - (void) releaseBitmapData;
 
+//Can use this method as an alternative to manually calling acquire and release. Do not call acquire or release within the block
+- (void) performBitmapDataOperation:(void (^)(ANEBitmapData* bitmapData))operation;
+
 @end

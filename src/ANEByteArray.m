@@ -67,6 +67,14 @@ else { NSLog(@"Must call acquireByteArray before accessing ANEByteArray properti
     _dataValid = false;
 }
 
+- (void) performByteArrayOperation:(void (^)(ANEByteArray* byteArray))operation {
+    [self acquireByteArray];
+    if(operation) {
+        operation(self);
+    }
+    [self releaseByteArray];
+}
+
 - (NSData*) data {
     return [NSData dataWithBytesNoCopy:_byteArray.bytes length:_byteArray.length freeWhenDone:NO];
 }

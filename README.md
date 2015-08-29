@@ -136,6 +136,15 @@ uint8_t* bytes = byteArray.bytes;
 [byteArray releaseByteArray];
 ```
 
+Alternatively, use the block-based API methods which will automatically call acquire and release for you:
+
+```objective-c
+[byteArray performByteArrayOperation:^(ANEByteArray* byteArray) {
+    uint8_t bytes = byteArray.bytes;
+    //Do stuff with bytes
+}];
+```
+
 ### ANEContext
 
 Just like how ANEObject is a wrapper around FREObject, ANEContext is a wrapper around FREContext:
@@ -214,7 +223,7 @@ if (canIDoThis.boolValue) { ... } //BAD! This will crash
 [byteArray releaseByteArray];
 ```
 
-You can, however, acquire multiple ByteArray or BitmapData objects (but not both at the same time), as long as you don't call any other ANE methods in between. So this is legal:
+You can, however, acquire multiple ByteArray or BitmapData objects (but not both kinds at the same time), as long as you don't call any other ANE methods in between. So this is legal:
 
 ```objective-c
 //Must create the objects BEFORE acquiring any locks
