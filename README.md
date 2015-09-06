@@ -162,10 +162,10 @@ ANEObject* sharedObject = context.actionScriptData;
 The nativeData property is a convenient way to hold context-specific data, like so:
 ```objective-c
 NSString* contextID = ...;
-context.nativeData = (void*)CFBridgingRetain(contextID);
+context.nativeData = (__bridge_retained void*)contextID;
 ```
 
-Because the nativeData is passed as-is to the C-side, make sure to insert the appropriate bridging calls for memory management.
+Because the nativeData is passed as-is to the C-side, make sure to insert the appropriate bridging casts for memory management.
 
 To communicate asynchronously between native code and ActionScript, use the dispatchStatusEventAsyncWithCode:level: method:
 
