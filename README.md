@@ -140,7 +140,7 @@ Alternatively, use the block-based API methods which will automatically call acq
 
 ```objective-c
 [byteArray performByteArrayOperation:^(ANEByteArray* byteArray) {
-    uint8_t bytes = byteArray.bytes;
+    uint8_t* bytes = byteArray.bytes;
     //Do stuff with bytes
 }];
 ```
