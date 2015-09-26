@@ -38,7 +38,7 @@ void ANE_assertOKResultException(FREResult result, FREObject exceptionObj) {
                 name = @"Wrong thread: A method was called from a thread other than the one on which the runtime has an outstanding call to a native extension function.";
                 break;
             case FRE_ILLEGAL_STATE:
-                name = @"Illegal state: A call was made to a native extension C API function when the extension context was in an illegal state for that call. You may not call any ANEObject methods aside from the one specifcally marked in ANEByteArray and ANEBitmapData while an ANEByteArray or ANEBitmapData's lock is acquired.";
+                name = @"Illegal state: A call was made to a native extension C API function when the extension context was in an illegal state for that call. You may not call any ANEObject methods aside from the ones specifically marked in ANEByteArray and ANEBitmapData while an ANEByteArray or ANEBitmapData's lock is acquired.";
                 break;
             case FRE_INSUFFICIENT_MEMORY:
                 name = @"Insufficient memory: The runtime could not allocate enough memory to change the size of an Array or Vector object.";
