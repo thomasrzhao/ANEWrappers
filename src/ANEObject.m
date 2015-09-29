@@ -63,35 +63,35 @@ static FREObjectType ANE_getObjectType(FREObject obj) {
     return self;
 }
 
-+ (instancetype) objectWithInt:(int32_t)value {
++ (ANEObject*) objectWithInt:(int32_t)value {
     FREObject obj;
     ANE_assertOKResult(FRENewObjectFromInt32(value, &obj));
-    return [self objectWithFREObject:obj];
+    return [ANEObject objectWithFREObject:obj];
 }
 
-+ (instancetype) objectWithUnsignedInt:(uint32_t)value {
++ (ANEObject*) objectWithUnsignedInt:(uint32_t)value {
     FREObject obj;
     ANE_assertOKResult(FRENewObjectFromUint32(value, &obj));
-    return [self objectWithFREObject:obj];
+    return [ANEObject objectWithFREObject:obj];
 }
 
-+ (instancetype) objectWithBool:(BOOL)value {
++ (ANEObject*) objectWithBool:(BOOL)value {
     FREObject obj;
     ANE_assertOKResult(FRENewObjectFromBool(value, &obj));
-    return [self objectWithFREObject:obj];
+    return [ANEObject objectWithFREObject:obj];
 }
 
-+ (instancetype) objectWithDouble:(double)value {
++ (ANEObject*) objectWithDouble:(double)value {
     FREObject obj;
     ANE_assertOKResult(FRENewObjectFromDouble(value, &obj));
-    return [self objectWithFREObject:obj];
+    return [ANEObject objectWithFREObject:obj];
 }
 
-+ (instancetype) objectWithString:(NSString*)value {
++ (ANEObject*) objectWithString:(NSString*)value {
     FREObject obj;
     NSData* stringData = [value dataUsingEncoding:NSUTF8StringEncoding];
     ANE_assertOKResult(FRENewObjectFromUTF8((uint32_t)(stringData.length), (uint8_t*)stringData.bytes, &obj));
-    return [self objectWithFREObject:obj];
+    return [ANEObject objectWithFREObject:obj];
 }
 
 + (instancetype) objectWithClassName:(NSString*)className constructorArgs:(ANEObject*)args, ... {

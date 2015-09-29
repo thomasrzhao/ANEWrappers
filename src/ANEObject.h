@@ -16,11 +16,11 @@
 
 - (instancetype) init __attribute__((unavailable("use the objectWithX: factory methods instead")));
 
-+ (instancetype) objectWithInt:(int32_t)value;
-+ (instancetype) objectWithUnsignedInt:(uint32_t)value;
-+ (instancetype) objectWithBool:(BOOL)value;
-+ (instancetype) objectWithDouble:(double)value;
-+ (instancetype) objectWithString:(NSString*)value;
++ (ANEObject*) objectWithInt:(int32_t)value;
++ (ANEObject*) objectWithUnsignedInt:(uint32_t)value;
++ (ANEObject*) objectWithBool:(BOOL)value;
++ (ANEObject*) objectWithDouble:(double)value;
++ (ANEObject*) objectWithString:(NSString*)value;
 
 + (instancetype) objectWithClassName:(NSString*)className constructorArgs:(ANEObject*)args, ... NS_REQUIRES_NIL_TERMINATION;
 + (instancetype) objectWithClassName:(NSString*)className constructorArgs:(ANEObject*)firstArg vaList:(va_list)vaList;

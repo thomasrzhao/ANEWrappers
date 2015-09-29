@@ -255,14 +255,13 @@ The objectWithFREObject: call behaves differently depending on the actual class 
 
 [ANEObject objectWithFREObject:] will actually return the correct subclass depending on the FREObject that's passed in. So if you pass in an FREObject that represents an ActionScript ByteArray, you'll actually get an ANEByteArray object back, but upcasted to ANEObject. 
 
-This does not apply to any of the subclasses, however. If you attempt to call objectWithFREObject: on any ANEObject subclass, you will always get either an instance of that subclass or nil. This also means that the objectWithInt:, objectWithBool:, etc. methods will always return nil if you call them on anything that's not an ANEObject.
+This does not apply to any of the subclasses, however. If you attempt to call objectWithFREObject: (or any other factory method that returns instancetype) on any ANEObject subclass, you will always get either an instance of that subclass or nil.
 
-This is to prevent the weird case of getting an ANEByteArray back from an ANEBitmapImage class method.
+This is to prevent the weird case of getting an ANEByteArray back from an ANEBitmapImage class method or vice versa.
 
 ```objective-c
 FREObject byteArrayObj = ...
 ANEByteArray* byteArray = (ANEByteArray*)[ANEObject objectWithFREObject:byteArrayObj]; //OK
 ANEByteArray* byteArrayToo = [ANEByteArray objectWithFREObject:byteArrayObj]; //OK
 ANEByteArray* notAByteArray = [ANEByteArray objectWithFREObject:bitmapObj]; //returns nil
-ANEByteArray* whatAreYouDoing = [ANEByteArray objectWithInt:42]; //returns nil
 ```
