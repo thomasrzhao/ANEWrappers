@@ -27,11 +27,15 @@
 }
 
 - (ANEObject*) nextObject {
-    if(_curIndex > _length) {
+    if(!_array) {
         return nil;
     }
+    
     ANEObject* object = _array[_curIndex];
     _curIndex++;
+    if(_curIndex >= _length) {
+        _array = nil;
+    }
     return object;
 }
 
@@ -94,7 +98,7 @@
     }
     
     state->itemsPtr = buffer;
-
+    
     uint32_t length = self.length;
     NSUInteger objCount = 0;
     
